@@ -1,8 +1,8 @@
-# Tic Tac Toe (React + Vite)
+# CalcWhiz (React + Vite)
 
 ## Introduction
 
-This is a classic Tic Tac Toe game. Players take turns placing their marks (either X or O) on a 3x3 grid. The first player to get 3 of their marks in a row (horizontally, vertically, or diagonally) wins the game.
+This is a basic Calculator that allows for 4 basic operations (Addition, Substraction, Multiplication and Division). It is made using Tailwind CSS and React.
 
 ## UI Library
 
@@ -13,9 +13,9 @@ Radix UI and ShadCN components were used to create the UI of the website. Moreov
 This project was deployed to Github Pages and can be tested there. No servers or databases were used in this Project.
 
 ## Preview
-![Screenshot 2024-05-28 055755](https://github.com/HasanYahya101/Tic-Tac-Toe-Vite/assets/118683092/3a98c544-9970-4941-858f-2c3fc0973d08)
-![Screenshot 2024-05-28 055819](https://github.com/HasanYahya101/Tic-Tac-Toe-Vite/assets/118683092/c56ff7da-7e7e-4ea4-85de-01f950ee8618)
-![Screenshot 2024-05-28 055837](https://github.com/HasanYahya101/Tic-Tac-Toe-Vite/assets/118683092/28a03319-d429-4eca-9009-ef024c0603c6)
+![Screenshot 2024-06-03 190119](https://github.com/HasanYahya101/CalcWhiz-Vite/assets/118683092/96d6d571-6c63-46ae-bade-c5fdb51d5631)
+![Screenshot 2024-06-03 190613](https://github.com/HasanYahya101/CalcWhiz-Vite/assets/118683092/e28dbb0a-7109-4408-b841-b89d6a426bc5)
+![Screenshot 2024-06-03 190622](https://github.com/HasanYahya101/CalcWhiz-Vite/assets/118683092/807d9f92-a6ad-4d1b-bf84-b20c593ca598)
 
 ## React + Vite
 
