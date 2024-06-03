@@ -7,15 +7,64 @@ export function Playground() {
     const [expression, setExpression] = useState("");
 
     const handleButtonClick = (value) => {
+        // If the entered value is an operator and the expression is empty, don't append it
+        if ("+-*/".includes(value) && expression === "") {
+            return;
+        }
+
+        // If the entered value is zero and the expression is empty, directly append it
+        if (value === "0" && expression === "") {
+            setExpression(expression + value);
+            return;
+        }
+
+        // If the entered value is zero and the last character is an operator, directly append it
+        if (value === "0" && "+-*/".includes(expression.slice(-1))) {
+            setExpression(expression + value);
+            return;
+        }
+
+        // If the entered value is zero and the last character is not an operator, check if it's a valid number
+        if (value === "0" && !isNaN(parseFloat(expression.slice(-1)))) {
+            setExpression(expression + value);
+            return;
+        }
+
+        // If the last character is a zero and the current value is not an operator, remove the zero before appending
+        if (expression.slice(-1) === "0" && !"+-*/".includes(value)) {
+            setExpression(expression.slice(0, -1) + value);
+            return;
+        }
+
+        // Otherwise, directly append the entered value
         setExpression(expression + value);
     }
 
     const EqualClick = () => {
         try {
-            setExpression(eval(expression).toString());
+            const result = eval(expression);
+            if (isNaN(result) || !isFinite(result)) {
+                setExpression("Error");
+            } else {
+                setExpression(result.toString());
+            }
         } catch (error) {
             setExpression("Error");
         }
+    }
+
+    const handleNegate = () => {
+        if (expression === "") return;
+        if (expression.charAt(0) === "-") {
+            setExpression(expression.slice(1));
+        } else {
+            setExpression("-" + expression);
+        }
+    }
+
+    const handlePercentage = () => {
+        const result = eval(expression + "/100");
+        setExpression(result.toString());
     }
 
     return (
@@ -35,12 +84,12 @@ export function Playground() {
                         variant="outline">
                         AC
                     </Button>
-                    <Button onClick={() => setExpression(expression * -1)}
+                    <Button onClick={handleNegate}
                         className="text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
                         variant="outline">
                         +/-
                     </Button>
-                    <Button onClick={() => setExpression(expression.slice(0, -1))}
+                    <Button onClick={handlePercentage}
                         className="text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
                         variant="outline">
                         %
