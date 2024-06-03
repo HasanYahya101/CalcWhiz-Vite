@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a basic Calculator that allows for 4 basic operations (Addition, Substraction, Multiplication and Division). It is made using Tailwind CSS and React.
+This is a basic Calculator that allows for 4 basic operations (Addition, Subtraction, Multiplication and Division). It is made using Tailwind CSS and React.
 
 ## UI Library
 
