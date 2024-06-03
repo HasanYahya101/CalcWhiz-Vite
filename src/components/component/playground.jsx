@@ -69,7 +69,7 @@ export function Playground() {
 
     return (
         (<div
-            className="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
+            className="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-gray-900 p-4">
             <div
                 className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
                 <div className="mb-4">
