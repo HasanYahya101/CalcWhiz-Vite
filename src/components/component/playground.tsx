@@ -326,8 +326,8 @@ export function Playground() {
     );
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-4xl">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4 overflow-x-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-4xl min-w-[1024px]">
                 <Input
                     value={isRpnMode ? rpnStack.join(' ') : display}
                     className="w-full px-4 py-2 text-right text-2xl font-bold mb-4 bg-gray-100 dark:bg-gray-700"
@@ -359,7 +359,6 @@ export function Playground() {
                 </div>
                 <Tabs defaultValue="basic" className="w-full">
                     <ScrollArea className="w-full whitespace-nowrap overflow-x-auto"
-                        style={{ display: isRpnMode ? 'none' : 'block' }}
                     >
                         <TabsList className="grid w-full grid-cols-6 mb-4 gap-1.5 overflow-x-auto">
                             <TabsTrigger value="basic">Basic</TabsTrigger>
