@@ -34,7 +34,7 @@ export default function Apology() {
     )
 }
 
-function SmartphoneIcon(props: React.SVGProps<SVGSVGElement>) {
+function SmartphoneIcon(props: any) {
     return (
         <svg
             {...props}
