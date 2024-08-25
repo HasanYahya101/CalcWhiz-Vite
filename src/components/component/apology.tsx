@@ -36,7 +36,7 @@ export default function Apology() {
 }
 
 
-function SmartphoneIcon(props: React.HTMLAttributes<SVGSVGElement> & { className?: string }) {
+/*function SmartphoneIcon(props: React.HTMLAttributes<SVGSVGElement> & { className?: string }) {
     return (
         <svg
             {...props}
@@ -54,4 +54,4 @@ function SmartphoneIcon(props: React.HTMLAttributes<SVGSVGElement> & { className
             <path d="M12 18h.01" />
         </svg>
     )
-}
+}*/
