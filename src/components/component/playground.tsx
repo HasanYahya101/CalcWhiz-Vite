@@ -327,7 +327,7 @@ export function Playground() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4 overflow-x-auto">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-4xl min-w-[520px]">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl min-w-[520px]">
                 <Input
                     value={isRpnMode ? rpnStack.join(' ') : display}
                     className="w-full px-4 py-2 text-right text-2xl font-bold mb-4 bg-gray-100 dark:bg-gray-700"
