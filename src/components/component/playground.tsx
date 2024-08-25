@@ -14,7 +14,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, BadgeHelp } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 
 export function Playground() {
@@ -615,11 +615,19 @@ export function Playground() {
                         </div>
                     </TabsContent>
                     <TabsContent value="history">
-                        <ScrollArea className="h-[200px] w-full rounded-md border p-4">
-                            {history.map((item, index) => (
-                                <div key={index} className="text-sm">{item}</div>
-                            ))}
-                        </ScrollArea>
+                        {history.length === 0 || history === null ?
+                            <div className="h-[200px] w-full rounded-md border dark:border-gray-600 p-4 items-center justify-center flex-col flex gap-2.5">
+                                <BadgeHelp className="h-14 w-14 text-muted-foreground" strokeWidth={1.5}
+                                />
+                                <div className="text-center text-sm text-muted-foreground">No history found</div>
+                            </div>
+                            :
+                            <ScrollArea className="h-[200px] w-full dark:border-gray-600 rounded-md border p-4">
+                                {history.map((item, index) => (
+                                    <div key={index} className="text-sm">{item}</div>
+                                ))}
+                            </ScrollArea>
+                        }
                     </TabsContent>
                 </Tabs>
             </div>
