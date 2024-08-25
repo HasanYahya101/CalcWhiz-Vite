@@ -13,7 +13,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 export function Playground() {
     const [display, setDisplay] = useState("0");
     const [memory, setMemory] = useState(0);
-    const [isRadianMode, setIsRadianMode] = useState(true);
     const [angleUnit, setAngleUnit] = useState("deg");
     const [history, setHistory] = useState<string[]>([]);
     const [rpnStack, setRpnStack] = useState<number[]>([]);
@@ -333,15 +332,7 @@ export function Playground() {
                     readOnly
                 />
                 <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center space-x-4">
-                        <div className="flex items-center space-x-2">
-                            <Switch
-                                id="radian-mode"
-                                checked={isRadianMode}
-                                onCheckedChange={setIsRadianMode}
-                            />
-                            <Label htmlFor="radian-mode">Radian</Label>
-                        </div>
+                    <div className="flex items-center space-x-4 ml-3 gap-4">
                         <Select value={angleUnit} onValueChange={setAngleUnit}>
                             <SelectTrigger className="w-[100px]">
                                 <SelectValue placeholder="Angle Unit" />
@@ -360,7 +351,7 @@ export function Playground() {
                             <Label htmlFor="rpn-mode">RPN Mode</Label>
                         </div>
                     </div>
-                    <div className="text-sm font-medium">
+                    <div className="text-sm font-medium mr-3">
                         Memory: {memory}
                     </div>
                 </div>
