@@ -8,6 +8,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 
 export function Playground() {
     const [display, setDisplay] = useState("0");
@@ -325,8 +333,30 @@ export function Playground() {
         </div>
     );
 
+    const { setTheme } = useTheme();
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4 overflow-x-auto">
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon" className="fixed top-6 right-6 z-50">
+                        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                        <span className="sr-only">Toggle theme</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => setTheme("light")}>
+                        Light
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("dark")}>
+                        Dark
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("system")}>
+                        System
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl min-w-[520px]">
                 <Input
                     value={isRpnMode ? rpnStack.join(' ') : display}
@@ -334,7 +364,7 @@ export function Playground() {
                     readOnly
                 />
                 <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center space-x-4 ml-3 gap-4">
+                    <div className="flex items-center space-x-4 ml-2 gap-4">
                         <Select value={angleUnit} onValueChange={setAngleUnit}>
                             <SelectTrigger className="w-[100px]">
                                 <SelectValue placeholder="Angle Unit" />
@@ -358,18 +388,14 @@ export function Playground() {
                     </div>
                 </div>
                 <Tabs defaultValue="basic" className="w-full">
-                    <ScrollArea className="w-full whitespace-nowrap overflow-x-auto"
-                    >
-                        <TabsList className="grid w-full grid-cols-6 mb-4 gap-1.5 overflow-x-auto">
-                            <TabsTrigger value="basic">Basic</TabsTrigger>
-                            <TabsTrigger value="scientific">Scientific</TabsTrigger>
-                            <TabsTrigger value="complex">Complex</TabsTrigger>
-                            <TabsTrigger value="graph">Graph</TabsTrigger>
-                            <TabsTrigger value="convert">Convert</TabsTrigger>
-                            <TabsTrigger value="history">History</TabsTrigger>
-                        </TabsList>
-                        <ScrollBar orientation="horizontal" />
-                    </ScrollArea>
+                    <TabsList className="grid w-full grid-cols-6 mb-4 gap-1.5 dark:border dark:border-gray-900">
+                        <TabsTrigger value="basic">Basic</TabsTrigger>
+                        <TabsTrigger value="scientific">Scientific</TabsTrigger>
+                        <TabsTrigger value="complex">Complex</TabsTrigger>
+                        <TabsTrigger value="graph">Graph</TabsTrigger>
+                        <TabsTrigger value="convert">Convert</TabsTrigger>
+                        <TabsTrigger value="history">History</TabsTrigger>
+                    </TabsList>
                     <TabsContent value="basic">
                         <ButtonGrid
                             buttons={[
