@@ -34,7 +34,11 @@ export default function Apology() {
     )
 }
 
-function SmartphoneIcon(props: any) {
+interface SmartphoneIconProps {
+    className?: string;
+}
+
+function SmartphoneIcon(props: SmartphoneIconProps) {
     return (
         <svg
             {...props}
