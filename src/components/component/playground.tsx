@@ -5,7 +5,8 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export function Playground() {
@@ -188,6 +189,60 @@ export function Playground() {
         return n * factorial(n - 1);
     };
 
+    const handleUnitConversion = useCallback((from: string, to: string) => {
+        const value = parseFloat(display);
+        let result: number;
+
+        const conversions: { [key: string]: { [key: string]: number | ((x: number) => number) } } = {
+            length: {
+                m: 1,
+                km: 0.001,
+                cm: 100,
+                mm: 1000,
+                in: 39.3701,
+                ft: 3.28084,
+                yd: 1.09361,
+                mi: 0.000621371
+            },
+            mass: {
+                kg: 1,
+                g: 1000,
+                mg: 1e6,
+                lb: 2.20462,
+                oz: 35.274
+            },
+            temperature: {
+                C: (x: number) => x,
+                F: (x: number) => (x * 9 / 5) + 32,
+                K: (x: number) => x + 273.15
+            }
+        };
+
+        if (from === to) {
+            result = value;
+        } else if (from in conversions.temperature && to in conversions.temperature) {
+            const toCelsius = {
+                C: (x: number) => x,
+                F: (x: number) => (x - 32) * 5 / 9,
+                K: (x: number) => x - 273.15
+            };
+            result = (conversions.temperature[to as keyof typeof conversions.temperature] as (x: number) => number)(toCelsius[from as keyof typeof toCelsius](value));
+        } else {
+            const category = Object.keys(conversions).find(cat => from in conversions[cat] && to in conversions[cat]);
+            if (category) {
+                const fromConversion = conversions[category][from];
+                const toConversion = conversions[category][to];
+                const fromValue = typeof fromConversion === 'function' ? fromConversion(value) : value * fromConversion;
+                const toValue = typeof toConversion === 'function' ? toConversion(1) : toConversion;
+                result = fromValue / toValue;
+            } else {
+                throw new Error("Incompatible units");
+            }
+        }
+
+        setDisplay(result.toString());
+    }, [display]);
+
     const handleComplexOperation = useCallback((operation: string) => {
         const [real, imag] = display.split('+');
         const a = parseFloat(real);
@@ -303,13 +358,19 @@ export function Playground() {
                     </div>
                 </div>
                 <Tabs defaultValue="basic" className="w-full">
-                    <TabsList className="grid w-full grid-cols-5 mb-4">
-                        <TabsTrigger value="basic">Basic</TabsTrigger>
-                        <TabsTrigger value="scientific">Scientific</TabsTrigger>
-                        <TabsTrigger value="complex">Complex</TabsTrigger>
-                        <TabsTrigger value="graph">Graph</TabsTrigger>
-                        <TabsTrigger value="history">History</TabsTrigger>
-                    </TabsList>
+                    <ScrollArea className="w-full whitespace-nowrap"
+                        style={{ display: isRpnMode ? 'none' : 'block' }}
+                    >
+                        <TabsList className="grid w-full grid-cols-6 mb-4">
+                            <TabsTrigger value="basic">Basic</TabsTrigger>
+                            <TabsTrigger value="scientific">Scientific</TabsTrigger>
+                            <TabsTrigger value="complex">Complex</TabsTrigger>
+                            <TabsTrigger value="graph">Graph</TabsTrigger>
+                            <TabsTrigger value="convert">Convert</TabsTrigger>
+                            <TabsTrigger value="history">History</TabsTrigger>
+                        </TabsList>
+                        <ScrollBar orientation="horizontal" />
+                    </ScrollArea>
                     <TabsContent value="basic">
                         <ButtonGrid
                             buttons={[
@@ -379,6 +440,153 @@ export function Playground() {
                                     <Line type="monotone" dataKey="y" stroke="#8884d8" dot={false} />
                                 </LineChart>
                             </ResponsiveContainer>
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="convert">
+                        <div className="grid grid-cols-3 gap-4">
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button variant="outline">Length</Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-80">
+                                    <div className="grid gap-4">
+                                        <div className="space-y-2">
+                                            <h4 className="font-medium leading-none">Convert Length</h4>
+                                            <p className="text-sm text-muted-foreground">
+                                                Choose units to convert between
+                                            </p>
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <div className="grid grid-cols-3 items-center gap-4">
+                                                <Label htmlFor="from">From</Label>
+                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')}>
+                                                    <SelectTrigger id="from">
+                                                        <SelectValue placeholder="Unit" />
+                                                    </SelectTrigger>
+                                                    <SelectContent position="popper">
+                                                        <SelectItem value="m">Meters</SelectItem>
+                                                        <SelectItem value="km">Kilometers</SelectItem>
+                                                        <SelectItem value="cm">Centimeters</SelectItem>
+                                                        <SelectItem value="mm">Millimeters</SelectItem>
+                                                        <SelectItem value="in">Inches</SelectItem>
+                                                        <SelectItem value="ft">Feet</SelectItem>
+                                                        <SelectItem value="yd">Yards</SelectItem>
+                                                        <SelectItem value="mi">Miles</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                            <div className="grid grid-cols-3 items-center gap-4">
+                                                <Label htmlFor="to">To</Label>
+                                                <Select onValueChange={(value) => handleUnitConversion('from', value)}>
+                                                    <SelectTrigger id="to">
+                                                        <SelectValue placeholder="Unit" />
+                                                    </SelectTrigger>
+                                                    <SelectContent position="popper">
+                                                        <SelectItem value="m">Meters</SelectItem>
+                                                        <SelectItem value="km">Kilometers</SelectItem>
+                                                        <SelectItem value="cm">Centimeters</SelectItem>
+                                                        <SelectItem value="mm">Millimeters</SelectItem>
+                                                        <SelectItem value="in">Inches</SelectItem>
+                                                        <SelectItem value="ft">Feet</SelectItem>
+                                                        <SelectItem value="yd">Yards</SelectItem>
+                                                        <SelectItem value="mi">Miles</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button variant="outline">Mass</Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-80">
+                                    <div className="grid gap-4">
+                                        <div className="space-y-2">
+                                            <h4 className="font-medium leading-none">Convert Mass</h4>
+                                            <p className="text-sm text-muted-foreground">
+                                                Choose units to convert between
+                                            </p>
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <div className="grid grid-cols-3 items-center gap-4">
+                                                <Label htmlFor="from">From</Label>
+                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')}>
+                                                    <SelectTrigger id="from">
+                                                        <SelectValue placeholder="Unit" />
+                                                    </SelectTrigger>
+                                                    <SelectContent position="popper">
+                                                        <SelectItem value="kg">Kilograms</SelectItem>
+                                                        <SelectItem value="g">Grams</SelectItem>
+                                                        <SelectItem value="mg">Milligrams</SelectItem>
+                                                        <SelectItem value="lb">Pounds</SelectItem>
+                                                        <SelectItem value="oz">Ounces</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                            <div className="grid grid-cols-3 items-center gap-4">
+                                                <Label htmlFor="to">To</Label>
+                                                <Select onValueChange={(value) => handleUnitConversion('from', value)}>
+                                                    <SelectTrigger id="to">
+                                                        <SelectValue placeholder="Unit" />
+                                                    </SelectTrigger>
+                                                    <SelectContent position="popper">
+                                                        <SelectItem value="kg">Kilograms</SelectItem>
+                                                        <SelectItem value="g">Grams</SelectItem>
+                                                        <SelectItem value="mg">Milligrams</SelectItem>
+                                                        <SelectItem value="lb">Pounds</SelectItem>
+                                                        <SelectItem value="oz">Ounces</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button variant="outline">Temperature</Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-80">
+                                    <div className="grid gap-4">
+                                        <div className="space-y-2">
+                                            <h4 className="font-medium leading-none">Convert Temperature</h4>
+                                            <p className="text-sm text-muted-foreground">
+                                                Choose units to convert between
+                                            </p>
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <div className="grid grid-cols-3 items-center gap-4">
+                                                <Label htmlFor="from">From</Label>
+                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')}>
+                                                    <SelectTrigger id="from">
+                                                        <SelectValue placeholder="Unit" />
+                                                    </SelectTrigger>
+                                                    <SelectContent position="popper">
+                                                        <SelectItem value="C">Celsius</SelectItem>
+                                                        <SelectItem value="F">Fahrenheit</SelectItem>
+                                                        <SelectItem value="K">Kelvin</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                            <div className="grid grid-cols-3 items-center gap-4">
+                                                <Label htmlFor="to">To</Label>
+                                                <Select onValueChange={(value) => handleUnitConversion('from', value)}>
+                                                    <SelectTrigger id="to">
+                                                        <SelectValue placeholder="Unit" />
+                                                    </SelectTrigger>
+                                                    <SelectContent position="popper">
+                                                        <SelectItem value="C">Celsius</SelectItem>
+                                                        <SelectItem value="F">Fahrenheit</SelectItem>
+                                                        <SelectItem value="K">Kelvin</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
                         </div>
                     </TabsContent>
                     <TabsContent value="history">
