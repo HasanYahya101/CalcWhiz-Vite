@@ -1,5 +1,6 @@
 import { useTheme } from "@/components/theme-provider";
 import { useEffect } from "react";
+import { Smartphone } from "lucide-react";
 
 const isDesktop = () => {
     const userAgent = window.navigator.userAgent.toLowerCase();
@@ -21,7 +22,7 @@ export default function Apology() {
     return (
         <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background dark:bg-black px-4 py-12 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-md text-center">
-                <SmartphoneIcon className="mx-auto h-12 w-12 text-primary" />
+                <Smartphone className="mx-auto h-12 w-12 text-blue-700" size={12} />
                 <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl dark:text-white">
                     Sorry, this website is only available for desktop
                 </h1>
@@ -34,11 +35,8 @@ export default function Apology() {
     )
 }
 
-interface SmartphoneIconProps {
-    className?: string;
-}
 
-function SmartphoneIcon(props: SmartphoneIconProps) {
+function SmartphoneIcon(props: React.HTMLAttributes<SVGSVGElement> & { className?: string }) {
     return (
         <svg
             {...props}
