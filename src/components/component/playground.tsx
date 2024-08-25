@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Slider } from "@/components/ui/slider";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -19,7 +18,6 @@ export function Playground() {
     const [isRpnMode, setIsRpnMode] = useState(false);
     const [graphData, setGraphData] = useState<{ x: number; y: number }[]>([]);
     const [graphRange, setGraphRange] = useState({ min: -10, max: 10 });
-    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const handleButtonClick = useCallback((value: string) => {
         if (isRpnMode) {
@@ -228,7 +226,7 @@ export function Playground() {
                 F: (x: number) => (x - 32) * 5 / 9,
                 K: (x: number) => x - 273.15
             };
-            result = (conversions.temperature[to] as (x: number) => number)(toCelsius[from](value));
+            result = (conversions.temperature[to as keyof typeof conversions.temperature] as (x: number) => number)(toCelsius[from as keyof typeof toCelsius](value));
         } else {
             const category = Object.keys(conversions).find(cat => from in conversions[cat] && to in conversions[cat]);
             if (category) {
