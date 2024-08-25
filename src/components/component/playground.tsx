@@ -195,7 +195,7 @@ export function Playground() {
         const value = parseFloat(display);
         let result: number;
 
-        const conversions: { [key: string]: { [key: string]: number } } = {
+        const conversions: { [key: string]: { [key: string]: number | ((x: number) => number) } } = {
             length: {
                 m: 1,
                 km: 0.001,
@@ -228,11 +228,15 @@ export function Playground() {
                 F: (x: number) => (x - 32) * 5 / 9,
                 K: (x: number) => x - 273.15
             };
-            result = conversions.temperature[to](toCelsius[from](value));
+            result = (conversions.temperature[to] as (x: number) => number)(toCelsius[from](value));
         } else {
             const category = Object.keys(conversions).find(cat => from in conversions[cat] && to in conversions[cat]);
             if (category) {
-                result = value * (conversions[category][from] as number) / (conversions[category][to] as number);
+                const fromConversion = conversions[category][from];
+                const toConversion = conversions[category][to];
+                const fromValue = typeof fromConversion === 'function' ? fromConversion(value) : value * fromConversion;
+                const toValue = typeof toConversion === 'function' ? toConversion(1) : toConversion;
+                result = fromValue / toValue;
             } else {
                 throw new Error("Incompatible units");
             }
