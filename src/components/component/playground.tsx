@@ -358,10 +358,10 @@ export function Playground() {
                     </div>
                 </div>
                 <Tabs defaultValue="basic" className="w-full">
-                    <ScrollArea className="w-full whitespace-nowrap"
+                    <ScrollArea className="w-full whitespace-nowrap overflow-x-auto"
                         style={{ display: isRpnMode ? 'none' : 'block' }}
                     >
-                        <TabsList className="grid w-full grid-cols-6 mb-4">
+                        <TabsList className="grid w-full grid-cols-6 mb-4 gap-1.5">
                             <TabsTrigger value="basic">Basic</TabsTrigger>
                             <TabsTrigger value="scientific">Scientific</TabsTrigger>
                             <TabsTrigger value="complex">Complex</TabsTrigger>
