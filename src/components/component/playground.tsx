@@ -495,7 +495,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => setFromLength(value)} defaultValue="m">
+                                                <Select onValueChange={(value) => setFromLength(value)} defaultValue="m" value={fromLength}>
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -513,7 +513,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => setToLength(value)} defaultValue="m">
+                                                <Select onValueChange={(value) => setToLength(value)} defaultValue="m" value={toLength}>
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -548,7 +548,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => setFromMass(value)} defaultValue="g">
+                                                <Select onValueChange={(value) => setFromMass(value)} defaultValue="g" value={fromMass}>
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -563,7 +563,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => setToMass(value)} defaultValue="g">
+                                                <Select onValueChange={(value) => setToMass(value)} defaultValue="g" value={toMass}>
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -595,7 +595,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => setFromTemp(value)} defaultValue="C">
+                                                <Select onValueChange={(value) => setFromTemp(value)} defaultValue="C" value={fromTemp}>
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -608,7 +608,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => setToTemp(value)} defaultValue="C">
+                                                <Select onValueChange={(value) => setToTemp(value)} defaultValue="C" value={toTemp}>
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -648,6 +648,6 @@ export function Playground() {
                     </TabsContent>
                 </Tabs>
             </div>
-        </div>
+        </div >
     );
 }
