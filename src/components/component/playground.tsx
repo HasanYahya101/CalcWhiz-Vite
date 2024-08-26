@@ -28,6 +28,13 @@ export function Playground() {
     const [graphRange, setGraphRange] = useState({ min: -10, max: 10 });
     const [answer, setAnswer] = useState(0);
 
+    const [fromLength, setFromLength] = useState('m');
+    const [toLength, setToLength] = useState('m');
+    const [fromMass, setFromMass] = useState('g');
+    const [toMass, setToMass] = useState('g');
+    const [fromTemp, setFromTemp] = useState('C');
+    const [toTemp, setToTemp] = useState('C');
+
     // Theme
     const { setTheme } = useTheme();
 
@@ -488,7 +495,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')} defaultValue="m">
+                                                <Select onValueChange={(value) => setFromLength(value)} defaultValue="m">
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -506,7 +513,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion('from', value)} defaultValue="m">
+                                                <Select onValueChange={(value) => setToLength(value)} defaultValue="m">
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -541,7 +548,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')} defaultValue="g">
+                                                <Select onValueChange={(value) => setFromMass(value)} defaultValue="g">
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -556,7 +563,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion('from', value)} defaultValue="g">
+                                                <Select onValueChange={(value) => setToMass(value)} defaultValue="g">
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -588,7 +595,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')} defaultValue="C">
+                                                <Select onValueChange={(value) => setFromTemp(value)} defaultValue="C">
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -601,7 +608,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion('from', value)} defaultValue="C">
+                                                <Select onValueChange={(value) => setToTemp(value)} defaultValue="C">
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
