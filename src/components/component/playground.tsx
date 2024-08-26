@@ -488,7 +488,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')}>
+                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')} defaultValue="m">
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -506,7 +506,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion('from', value)}>
+                                                <Select onValueChange={(value) => handleUnitConversion('from', value)} defaultValue="m">
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -541,7 +541,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')}>
+                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')} defaultValue="g">
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -556,7 +556,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion('from', value)}>
+                                                <Select onValueChange={(value) => handleUnitConversion('from', value)} defaultValue="g">
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -588,7 +588,7 @@ export function Playground() {
                                         <div className="grid gap-2">
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="from">From</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')}>
+                                                <Select onValueChange={(value) => handleUnitConversion(value, 'to')} defaultValue="C">
                                                     <SelectTrigger id="from">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
@@ -601,7 +601,7 @@ export function Playground() {
                                             </div>
                                             <div className="grid grid-cols-3 items-center gap-4">
                                                 <Label htmlFor="to">To</Label>
-                                                <Select onValueChange={(value) => handleUnitConversion('from', value)}>
+                                                <Select onValueChange={(value) => handleUnitConversion('from', value)} defaultValue="C">
                                                     <SelectTrigger id="to">
                                                         <SelectValue placeholder="Unit" />
                                                     </SelectTrigger>
