@@ -28,6 +28,9 @@ export function Playground() {
     const [graphRange, setGraphRange] = useState({ min: -10, max: 10 });
     const [answer, setAnswer] = useState(0);
 
+    // Theme
+    const { setTheme } = useTheme();
+
     const handleButtonClick = useCallback((value: string) => {
         if (isRpnMode) {
             if (!isNaN(parseFloat(value))) {
@@ -327,7 +330,7 @@ export function Playground() {
                         else if (btn === 'AC') handleClear();
                         else handleButtonClick(btn);
                     }}
-                    className="h-12 text-sm font-medium"
+                    className="h-12 text-sm font-medium dark:hover:border dark:hover:border-gray-900"
                     variant={['=', 'AC'].includes(btn) ? "default" : "outline"}
                 >
                     {btn}
@@ -335,8 +338,6 @@ export function Playground() {
             ))}
         </div>
     );
-
-    const { setTheme } = useTheme();
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4 overflow-x-auto">
