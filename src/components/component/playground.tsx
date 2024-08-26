@@ -26,6 +26,7 @@ export function Playground() {
     const [isRpnMode, setIsRpnMode] = useState(false);
     const [graphData, setGraphData] = useState<{ x: number; y: number }[]>([]);
     const [graphRange, setGraphRange] = useState({ min: -10, max: 10 });
+    const [answer, setAnswer] = useState(0);
 
     const handleButtonClick = useCallback((value: string) => {
         if (isRpnMode) {
@@ -53,6 +54,7 @@ export function Playground() {
                 result = calculateRPN();
             } else {
                 const processedDisplay = display
+                    .replace(/Ans/g, answer.toString())
                     .replace(/π/g, 'Math.PI')
                     .replace(/e/g, 'Math.E')
                     .replace(/\^/g, '**')
@@ -72,6 +74,7 @@ export function Playground() {
 
             setDisplay(result.toString());
             setHistory((prev) => [...prev, `${display} = ${result}`]);
+            setAnswer(result);
         } catch (error) {
             setDisplay("Error");
         }
