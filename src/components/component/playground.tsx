@@ -321,11 +321,11 @@ export function Playground() {
                         if (btn === '=') handleCalculate();
                         else if (['sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'log', 'ln', 'sqrt', 'cbrt', 'x^2', 'x^3', '10^x', 'e^x', '1/x', 'abs', 'floor', 'ceil', 'round', 'fact'].includes(btn)) handleScientificFunction(btn);
                         else if (['M+', 'M-', 'MR', 'MC'].includes(btn)) handleMemoryFunction(btn);
-                        else if (btn === 'C') handleClear();
+                        else if (btn === 'AC') handleClear();
                         else handleButtonClick(btn);
                     }}
                     className="h-12 text-sm font-medium"
-                    variant={['=', 'C'].includes(btn) ? "default" : "outline"}
+                    variant={['=', 'AC'].includes(btn) ? "default" : "outline"}
                 >
                     {btn}
                 </Button>
@@ -399,7 +399,7 @@ export function Playground() {
                     <TabsContent value="basic">
                         <ButtonGrid
                             buttons={[
-                                ['7', '8', '9', '/', 'C'],
+                                ['7', '8', '9', '/', 'AC'],
                                 ['4', '5', '6', '*', '('],
                                 ['1', '2', '3', '-', ')'],
                                 ['0', '.', 'π', '+', '='],
@@ -415,7 +415,7 @@ export function Playground() {
                                 ['sqrt', 'cbrt', 'x^2', 'x^3', '1/x'],
                                 ['abs', 'floor', 'ceil', 'round', 'fact'],
                                 ['(', ')', '^', 'π', 'e'],
-                                ['M+', 'M-', 'MR', 'MC', 'C'],
+                                ['M+', 'M-', 'MR', 'MC', 'AC'],
                                 ['7', '8', '9', '/', '='],
                                 ['4', '5', '6', '*', '%'],
                                 ['1', '2', '3', '-', 'EXP'],
