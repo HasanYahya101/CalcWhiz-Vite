@@ -624,6 +624,12 @@ export function Playground() {
                                 </PopoverContent>
                             </Popover>
                         </div>
+                        {/*three convert buttons*/}
+                        <div className="grid grid-cols-3 gap-4">
+                            <Button className="dark:hover:border dark:hover:border-gray-900" onClick={() => handleUnitConversion(fromLength, toLength)}>Convert Length</Button>
+                            <Button className="dark:hover:border dark:hover:border-gray-900" onClick={() => handleUnitConversion(fromMass, toMass)}>Convert Mass</Button>
+                            <Button className="dark:hover:border dark:hover:border-gray-900" onClick={() => handleUnitConversion(fromTemp, toTemp)}>Convert Temperature</Button>
+                        </div>
                     </TabsContent>
                     <TabsContent value="history">
                         {history.length === 0 || history === null ?
