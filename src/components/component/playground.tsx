@@ -475,7 +475,7 @@ export function Playground() {
                         <div className="grid grid-cols-3 gap-4">
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Button variant="outline">Length</Button>
+                                    <Button variant="outline" className="dark:hover:border dark:hover:border-gray-900">Length</Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-80">
                                     <div className="grid gap-4">
@@ -528,7 +528,7 @@ export function Playground() {
                             </Popover>
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Button variant="outline">Mass</Button>
+                                    <Button variant="outline" className="dark:hover:border dark:hover:border-gray-900">Mass</Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-80">
                                     <div className="grid gap-4">
@@ -575,7 +575,7 @@ export function Playground() {
                             </Popover>
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Button variant="outline">Temperature</Button>
+                                    <Button className="dark:hover:border dark:hover:border-gray-900" variant="outline">Temperature</Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-80">
                                     <div className="grid gap-4">
